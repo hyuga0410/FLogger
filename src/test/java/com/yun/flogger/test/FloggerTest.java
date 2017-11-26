@@ -9,6 +9,7 @@ public class FloggerTest {
 		//获取单例
 		FLogger logger = FLogger.getInstance();
 		//简便api,只需指定内容
+		logger.debug("Here is your message...");
 		logger.info("Here is your message...");
 		//指定日志级别和内容，文件名自动映射
 		logger.writeLog(Constant.INFO, "Here is your customized level message...");

@@ -14,15 +14,15 @@ public class TimeUtil {
 	 * @return 格式如 2015-10-31 10:33:25:012
 	 */
 	public static String getFullDateTime(){
-		StringBuffer sb = new StringBuffer(30);
-		Calendar nowtime = Calendar.getInstance();
-		int _year = nowtime.get(Calendar.YEAR); //获取年数
-		int _month = nowtime.get(Calendar.MONTH) + 1; //获取月数（Java中默认为0-11）
-		int _day = nowtime.get(Calendar.DAY_OF_MONTH); //获取天数
-		int _hour = nowtime.get(Calendar.HOUR_OF_DAY); //获取小时
-		int _minute = nowtime.get(Calendar.MINUTE); //获取分钟
-		int _second = nowtime.get(Calendar.SECOND); //获取秒数
-		int _millisecond = nowtime.get(Calendar.MILLISECOND); //获取毫秒数
+		StringBuilder sb = new StringBuilder(30);
+		Calendar nowTime = Calendar.getInstance();
+		int _year = nowTime.get(Calendar.YEAR); //获取年数
+		int _month = nowTime.get(Calendar.MONTH) + 1; //获取月数（Java中默认为0-11）
+		int _day = nowTime.get(Calendar.DAY_OF_MONTH); //获取天数
+		int _hour = nowTime.get(Calendar.HOUR_OF_DAY); //获取小时
+		int _minute = nowTime.get(Calendar.MINUTE); //获取分钟
+		int _second = nowTime.get(Calendar.SECOND); //获取秒数
+		int _millisecond = nowTime.get(Calendar.MILLISECOND); //获取毫秒数
 
 		sb.append(_year);
 		sb.append("-");
@@ -67,11 +67,11 @@ public class TimeUtil {
 	 * @return 年月日，格式如2015-10-31
 	 */
 	public static String getPCDate(char c) {
-		StringBuffer sb = new StringBuffer(30);
-		Calendar nowtime = Calendar.getInstance();
-		int _year = nowtime.get(Calendar.YEAR); //获取年数
-		int _month = nowtime.get(Calendar.MONTH) + 1; //获取月数（Java中默认为0-11）
-		int _day = nowtime.get(Calendar.DAY_OF_MONTH); //获取天数
+		StringBuilder sb = new StringBuilder(30);
+		Calendar nowTime = Calendar.getInstance();
+		int _year = nowTime.get(Calendar.YEAR); //获取年数
+		int _month = nowTime.get(Calendar.MONTH) + 1; //获取月数（Java中默认为0-11）
+		int _day = nowTime.get(Calendar.DAY_OF_MONTH); //获取天数
 
 		sb.append(_year);
 		sb.append(c);
@@ -93,11 +93,11 @@ public class TimeUtil {
 	 * @return 年月日，格式如20151031
 	 */
 	public static String getPCDate() {
-		StringBuffer sb = new StringBuffer(30);
-		Calendar nowtime = Calendar.getInstance();
-		int _year = nowtime.get(Calendar.YEAR); //获取年数
-		int _month = nowtime.get(Calendar.MONTH) + 1; //获取月数（Java中默认为0-11）
-		int _day = nowtime.get(Calendar.DAY_OF_MONTH); //获取天数
+		StringBuilder sb = new StringBuilder(30);
+		Calendar nowTime = Calendar.getInstance();
+		int _year = nowTime.get(Calendar.YEAR); //获取年数
+		int _month = nowTime.get(Calendar.MONTH) + 1; //获取月数（Java中默认为0-11）
+		int _day = nowTime.get(Calendar.DAY_OF_MONTH); //获取天数
 
 		sb.append(_year);
 		if(_month <10){
@@ -117,11 +117,11 @@ public class TimeUtil {
 	 * @return 时分秒，格式如122415，12时24分15秒
 	 */
 	public static String getCurrTime() {
-		StringBuffer sb = new StringBuffer(30);
-		Calendar nowtime = Calendar.getInstance();
-		int _hour = nowtime.get(Calendar.HOUR_OF_DAY); //获取小时
-		int _minute = nowtime.get(Calendar.MINUTE); //获取分钟
-		int _second = nowtime.get(Calendar.SECOND); //获取秒数
+		StringBuilder sb = new StringBuilder(30);
+		Calendar nowTime = Calendar.getInstance();
+		int _hour = nowTime.get(Calendar.HOUR_OF_DAY); //获取小时
+		int _minute = nowTime.get(Calendar.MINUTE); //获取分钟
+		int _second = nowTime.get(Calendar.SECOND); //获取秒数
 		if(_hour <10){
 			sb.append("0");
 		}
