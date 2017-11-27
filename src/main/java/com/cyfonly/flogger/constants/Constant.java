@@ -1,7 +1,9 @@
 package com.cyfonly.flogger.constants;
+
+import com.cyfonly.flogger.utils.CommUtil;
+
 import java.util.HashMap;
 import java.util.Map;
-import com.cyfonly.flogger.utils.CommUtil;
 
 /**
  * 常量
@@ -32,7 +34,7 @@ public final class Constant {
 	public static String CFG_CHARSET_NAME = CommUtil.getConfigByString("CHARSET_NAME", "UTF-8");
 
 	/**日志文件路径*/
-	public static String CFG_LOG_PATH = CommUtil.getConfigByString("LOG_PATH", "./log");
+	public static String CFG_LOG_PATH = CommUtil.getConfigByString("LOG_PATH", "./logs");
 
 	/** 日志类型描述map*/
 	@SuppressWarnings("serial")

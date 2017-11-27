@@ -1,13 +1,12 @@
 package com.yun.flogger.test;
 
 import com.cyfonly.flogger.FLogger;
-import com.cyfonly.flogger.constants.Constant;
 
 public class FloggerTest {
 
     public static void main(String[] args) {
         //获取单例
-        FLogger logger = FLogger.getInstance();
+        FLogger logger = FLogger.getInstance(FloggerTest.class);
         //简便api,只需指定内容
         logger.debug("Here is your message...");
         logger.info("Here is your message...");

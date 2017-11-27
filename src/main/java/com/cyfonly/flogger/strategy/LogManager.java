@@ -33,24 +33,24 @@ public class LogManager extends Thread {
     /**
      * 日志写入的间隔时间
      */
-    public final static long WRITE_LOG_INV_TIME = CommUtil.getConfigByLong("WRITE_LOG_INV_TIME", 1000);
+    private final static long WRITE_LOG_INV_TIME = CommUtil.getConfigByLong("WRITE_LOG_INV_TIME", 1000);
 
     /**
      * 单个日志文件的大小(默认为10M)
      */
-    public final static long SINGLE_LOG_FILE_SIZE = CommUtil.getConfigByLong("SINGLE_LOG_FILE_SIZE", 1024 * 1024 * 10);
+    private final static long SINGLE_LOG_FILE_SIZE = CommUtil.getConfigByLong("SINGLE_LOG_FILE_SIZE", 1024 * 1024 * 10);
 
     /**
      * 缓存大小(默认10KB)
      */
-    public final static long SINGLE_LOG_CACHE_SIZE = CommUtil.getConfigByLong("SINGLE_LOG_CACHE_SIZE", 1024 * 10);
+    private final static long SINGLE_LOG_CACHE_SIZE = CommUtil.getConfigByLong("SINGLE_LOG_CACHE_SIZE", 1024 * 10);
 
     /**
      * 是否运行
      */
     private boolean bIsRun = true;
 
-    public LogManager() {
+    private LogManager() {
 
     }
 
@@ -58,11 +58,13 @@ public class LogManager extends Thread {
      * 日志单线程初始化
      * 获得日志管理类单例
      */
-    public synchronized static LogManager getInstance() {
+    public synchronized static LogManager getInstance(Class clazz) {
         if (instance == null) {
             instance = new LogManager();
-            instance.setName("FLogger");//设置线程名称
+            instance.setName(clazz.getSimpleName());//设置线程名称
             instance.start();//启动线程
+        } else {
+            instance.setName(clazz.getSimpleName());
         }
         return instance;
     }
@@ -229,23 +231,23 @@ public class LogManager extends Thread {
      */
     private int writeToFile(String sFullFileName, ArrayList<StringBuffer> sbLogMsg) throws IOException {
         int size = 0;
-        OutputStream fout = null;
+        OutputStream flout = null;
         try {
-            fout = new FileOutputStream(sFullFileName, true);
+            flout = new FileOutputStream(sFullFileName, true);
             for (StringBuffer logMsg : sbLogMsg) {
                 byte[] tmpBytes = CommUtil.StringToBytes(logMsg.toString());
                 if (tmpBytes != null) {
-                    fout.write(tmpBytes);
+                    flout.write(tmpBytes);
                     size += tmpBytes.length;
                 }
             }
-            fout.flush();
+            flout.flush();
             sbLogMsg.clear();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (fout != null) {
-                fout.close();
+            if (flout != null) {
+                flout.close();
             }
         }
         return size;
