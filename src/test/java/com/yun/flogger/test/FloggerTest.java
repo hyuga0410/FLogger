@@ -6,7 +6,7 @@ public class FloggerTest {
 
     public static void main(String[] args) {
         //获取单例
-        FLogger logger = FLogger.getInstance(FloggerTest.class);
+        FLogger logger = FLogger.getInstance();
         //简便api,只需指定内容
         logger.debug("Here is your message...");
         logger.info("Here is your message...");

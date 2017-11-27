@@ -58,13 +58,11 @@ public class LogManager extends Thread {
      * 日志单线程初始化
      * 获得日志管理类单例
      */
-    public synchronized static LogManager getInstance(Class clazz) {
+    public synchronized static LogManager getInstance() {
         if (instance == null) {
             instance = new LogManager();
-            instance.setName(clazz.getSimpleName());//设置线程名称
+            instance.setName("Flogger");
             instance.start();//启动线程
-        } else {
-            instance.setName(clazz.getSimpleName());
         }
         return instance;
     }

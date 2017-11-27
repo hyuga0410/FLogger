@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @create 2017-02-08
  */
 public class FloggerThroughputTest {
-    private static FLogger flogger = FLogger.getInstance(FloggerThroughputTest.class);
+    private static FLogger flogger = FLogger.getInstance();
 
     private static String        record_100_byte = "Performance Testing.Performance Testing.Performance Testing.Performance Testing.Performance Testing.";   //100字节
     private static String        record_200_byte = "Performance Testing.Performance Testing.Performance Testing.Performance Testing.Performance Testing.Performance Testing.Performance Testing.Performance Testing.Performance Testing.Performance Testing.";   //200字节

@@ -16,15 +16,18 @@ public class FLogger {
     private static FLogger    instance;
     private static LogManager logManager;
 
-    public FLogger(Class clazz) {
-        logManager = LogManager.getInstance(clazz);
+    static {
+        logManager = LogManager.getInstance();
+    }
+
+    public FLogger() {
         //使用Runtime.addShutdownHook(Thread hook)向JVM添加关闭钩子
         Runtime.getRuntime().addShutdownHook(new Thread(this::close));
     }
 
-    public static synchronized FLogger getInstance(Class clazz) {
+    public static synchronized FLogger getInstance() {
         if (instance == null) {
-            instance = new FLogger(clazz);
+            instance = new FLogger();
         }
         return instance;
     }
@@ -99,8 +102,8 @@ public class FLogger {
 
             String logType = Constant.LOG_DESC_MAP.get(String.valueOf(level));
             String fullDateTime = TimeUtil.getFullDateTime();
-            //String currentThreadName = Thread.currentThread().getName();
-            String currentThreadName = logManager.getName();
+            String currentThreadName = Thread.currentThread().getName();
+            //String currentThreadName = logManager.getName();
             logMessage = String.format(logMessage, logType, fullDateTime, currentThreadName, logMsg);
 
             logManager.addLog(logFileName, sb.append(logMessage));

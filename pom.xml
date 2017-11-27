@@ -113,31 +113,23 @@
                         </configuration>
                     </plugin>
 
-                    <plugin>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <configuration>
-                                    <tasks>
-                                        <copy todir="${project.build.directory}/bin">
-                                            <fileset dir="${project.build.directory}">
-                                                <include name="*.jar"/>
-                                                <include name="*.sh"/>
-                                                <include name="*.bat"/>
-                                            </fileset>
-                                        </copy>
+                    <!--<plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <webResources>
+                                <resource>
+                                    <directory>${project.basedir}/libs</directory>
+                                    <targetPath>WEB-INF/libs</targetPath>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>**/*.jar</include>
+                                    </includes>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </plugin>-->
 
-                                        <zip basedir="${project.build.directory}/bin"
-                                             destfile="../flogger-${project.version}-bin.zip"/>
-                                    </tasks>
-                                </configuration>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
 
                 </plugins>
             </build>
