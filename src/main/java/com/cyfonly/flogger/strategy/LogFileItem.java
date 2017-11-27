@@ -22,10 +22,10 @@ public class LogFileItem {
 	public char currLogBuff = 'A';
 	
 	/** 日志缓存列表A */
-	public ArrayList<StringBuffer> alLogBufA = new ArrayList<StringBuffer>();
+	public ArrayList<StringBuffer> alLogBufA = new ArrayList<>();
 	
 	/** 日志缓存列表B */
-	public ArrayList<StringBuffer> alLogBufB = new ArrayList<StringBuffer>();
+	public ArrayList<StringBuffer> alLogBufB = new ArrayList<>();
 		
 	/** 下次日志输出到文件时间 */
 	public long nextWriteTime = 0 ;

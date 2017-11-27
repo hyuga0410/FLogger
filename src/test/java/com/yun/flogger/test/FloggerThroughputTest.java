@@ -27,21 +27,18 @@ public class FloggerThroughputTest {
 		
 		long st = System.currentTimeMillis();
 		for(int i=0; i<threadNum; i++){
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					while(messageCount.get() < count){
-						flogger.info(record_400_byte);
-						messageCount.incrementAndGet();
-					}
-					latch.countDown();
-				}
-			}).start();
+			new Thread(() -> {
+                while(messageCount.get() < count){
+                    flogger.info(record_400_byte);
+                    messageCount.incrementAndGet();
+                }
+                latch.countDown();
+            }).start();
 		}
 		latch.await();
 		long et = System.currentTimeMillis();
 		
-		System.out.println("messageCount=" + messageCount.get() + ", threadNum=" + threadNum + ", costTime=" + (et-st) +"ms, throughput=" + (1*1000*messageCount.get()/(et-st)));
+		System.out.println("messageCount=" + messageCount.get() + ", threadNum=" + threadNum + ", costTime=" + (et-st) +"ms, throughput=" + (1000 * messageCount.get() /(et-st)));
 		System.exit(0);
 	}
 

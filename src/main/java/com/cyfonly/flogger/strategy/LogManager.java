@@ -28,7 +28,7 @@ public class LogManager extends Thread {
     /**
      * 日志文件列表
      */
-    private Map<String, LogFileItem> logFileMap = new ConcurrentHashMap<String, LogFileItem>();
+    private Map<String, LogFileItem> logFileMap = new ConcurrentHashMap<>();
 
     /**
      * 日志写入的间隔时间
@@ -73,6 +73,7 @@ public class LogManager extends Thread {
      * @param logFileName 日志文件名称
      * @param logMsg      日志内容
      */
+    @SuppressWarnings("all")
     public void addLog(String logFileName, StringBuffer logMsg) {
         //获得单个日志文件的信息
         LogFileItem lfi = logFileMap.get(logFileName);
@@ -95,7 +96,8 @@ public class LogManager extends Thread {
                 lfi.alLogBufB.add(logMsg);
             }
             //当前已缓存大小
-            lfi.currCacheSize += CommUtil.StringToBytes(logMsg.toString()).length;
+            String str = logMsg.toString();
+            lfi.currCacheSize += CommUtil.StringToBytes(str).length;
         }
     }
 
@@ -104,7 +106,7 @@ public class LogManager extends Thread {
      */
     public void run() {
         int i = 0;
-        while (bIsRun) {
+        while (bIsRun) {//线程循环将logFileMap中的缓存日志输出到文件
             try {
                 //输出到文件
                 flush(false);
@@ -138,6 +140,7 @@ public class LogManager extends Thread {
      *
      * @param bIsForce 是否强制将缓存中的日志输出到文件
      */
+    @SuppressWarnings("all")
     private void flush(boolean bIsForce) throws IOException {
         long currTime = System.currentTimeMillis();
         for (String s : logFileMap.keySet()) {
@@ -151,7 +154,7 @@ public class LogManager extends Thread {
             if (currTime >= lfi.nextWriteTime || SINGLE_LOG_CACHE_SIZE <= lfi.currCacheSize || bIsForce) {
                 //获得需要进行输出的缓存列表
                 ArrayList<StringBuffer> alWrtLog;
-                synchronized (lfi) {
+                synchronized (lfi) {//双盘刷盘模式：拿到A盘数据后，切换到B盘，将日志输出到文件，清空logFileMap中对应的logFileItem的缓存
                     if (lfi.currLogBuff == 'A') {
                         alWrtLog = lfi.alLogBufA;
                         lfi.currLogBuff = 'B';
@@ -175,6 +178,7 @@ public class LogManager extends Thread {
      *
      * @param lfi
      */
+    @SuppressWarnings("all")
     private void createLogFile(LogFileItem lfi) {
         //当前系统日期
         String currPCDate = TimeUtil.getPCDate('-');
@@ -188,16 +192,16 @@ public class LogManager extends Thread {
         //如果超过单个文件大小，则拆分文件
         if (lfi.fullLogFileName != null && lfi.fullLogFileName.length() > 0 && lfi.currLogSize >= LogManager.SINGLE_LOG_FILE_SIZE) {
             File oldFile = new File(lfi.fullLogFileName);
-            if (oldFile.exists()) {
+            if (oldFile.exists()) {//如果info.log存在，则将文件改名为/Users/hyuga/flogger/2017-11-27/info_20171127_103831.log【备份】
                 String newFileName = Constant.CFG_LOG_PATH + "/" + lfi.lastPCDate + "/" + lfi.logFileName + "_" + TimeUtil.getPCDate() + "_" + TimeUtil.getCurrTime() + ".log";
                 File newFile = new File(newFileName);
                 boolean flag = oldFile.renameTo(newFile);
                 System.out.println("日志已自动备份为 " + newFile.getName() + (flag ? "成功!" : "失败!"));
-                lfi.fullLogFileName = "";
+                lfi.fullLogFileName = "";//清空文件名和当前日志大小
                 lfi.currLogSize = 0;
             }
         }
-        //创建文件
+        //如果文件名为空或者当前日期与文件夹日志不一致，创建新的日期文件夹和文件
         if (lfi.fullLogFileName == null || lfi.fullLogFileName.length() <= 0 || !lfi.lastPCDate.equals(currPCDate)) {
             String sDir = Constant.CFG_LOG_PATH + "/" + currPCDate;
             File file = new File(sDir);

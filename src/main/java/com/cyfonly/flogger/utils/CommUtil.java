@@ -19,14 +19,14 @@ import com.cyfonly.flogger.constants.Constant;
 public class CommUtil {
 
     /**
-     * 配置文件名
+     * 配置文件名:flogger配置文件
      */
     private static final String CONFIG_FILE_NAME = "flogger.properties";
 
     /**
      * 配置map
      */
-    private static HashMap<String, Object[]> propsMap = new HashMap<String, Object[]>();
+    private static HashMap<String, Object[]> propsMap = new HashMap<>();
 
     /**
      * 从配置文件中取得 String 值，若无则返回默认值
@@ -117,7 +117,7 @@ public class CommUtil {
         File cfgFile = new File(filePath);
         if (!cfgFile.exists()) {
             try {
-                URL resource = CommUtil.class.getClassLoader().getResource(CONFIG_FILE_NAME);
+                URL resource = CommUtil.class.getClassLoader().getResource(filePath);
                 if (resource != null) {
                     filePath = resource.getPath();
                 } else {
