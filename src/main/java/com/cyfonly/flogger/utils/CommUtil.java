@@ -1,5 +1,7 @@
 package com.cyfonly.flogger.utils;
 
+import com.cyfonly.flogger.constants.Constant;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,8 +9,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Properties;
-
-import com.cyfonly.flogger.constants.Constant;
+import java.util.ResourceBundle;
 
 /**
  * 公用工具类
@@ -36,8 +37,9 @@ public class CommUtil {
      * @return 属性值
      */
     public static String getConfigByString(String keyName, String defaultValue) {
-        String value = getConfig(keyName);
-        if (value != null && value.length() > 0) {
+        //String value = getConfig(keyName);
+        String value = ResourceBundle.getBundle("flogger").getString(keyName);
+        if (value.length() > 0) {
             return value.trim();
         } else {
             return defaultValue;
@@ -52,8 +54,9 @@ public class CommUtil {
      * @return 属性值
      */
     public static int getConfigByInt(String keyName, int defaultValue) {
-        String value = getConfig(keyName);
-        if (value != null && value.length() > 0) {
+        //String value = getConfig(keyName);
+        String value = ResourceBundle.getBundle("flogger").getString(keyName);
+        if (value.length() > 0) {
             try {
                 return Integer.parseInt(value.trim());
             } catch (Exception e) {
@@ -72,8 +75,9 @@ public class CommUtil {
      * @return 属性值
      */
     public static long getConfigByLong(String keyName, long defaultValue) {
-        String value = getConfig(keyName);
-        if (value != null && value.length() > 0) {
+        String value = ResourceBundle.getBundle("flogger").getString(keyName);
+        //String value = getConfig(keyName);
+        if (value.length() > 0) {
             try {
                 return Long.parseLong(value.trim());
             } catch (Exception e) {
@@ -92,8 +96,9 @@ public class CommUtil {
      * @return 属性值
      */
     public static boolean getConfigByBoolean(String keyName, boolean defaultValue) {
-        String value = getConfig(keyName);
-        if (value != null && value.length() > 0) {
+        //String value = getConfig(keyName);
+        String value = ResourceBundle.getBundle("flogger").getString(keyName);
+        if (value.length() > 0) {
             return Boolean.parseBoolean(value.trim());
         } else {
             return defaultValue;
